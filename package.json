@@ -1,0 +1,54 @@
+{
+  "name": "filtersearch",
+  "version": "1.0.0",
+  "description": "sidebar filter form using graphql",
+  "main": "server.ts",
+  "scripts": {
+    "start": "npm run serve",
+    "serve": "node dist/server.js",
+    "dev": "nodemon --exec ts-node server.ts",
+    "build": "tsc --project ./tsconfig.json",
+    "build-verify": "npm run build -- --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagarbetkar/filterSearch.git"
+  },
+  "keywords": [
+    "typescript",
+    "filter",
+    "graphql",
+    "nodejs",
+    "express",
+    "mongodb",
+    "ant",
+    "design"
+  ],
+  "author": "Sagar Betkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagarbetkar/filterSearch/issues"
+  },
+  "homepage": "https://github.com/sagarbetkar/filterSearch#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.4.8",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "graphql": "^14.2.1",
+    "mongoose": "^5.5.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.11",
+    "react-apollo": "^2.5.5",
+    "tslint": "^5.16.0",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/mongoose": "^5.3.27",
+    "@types/morgan": "^1.7.35"
+  }
+}
