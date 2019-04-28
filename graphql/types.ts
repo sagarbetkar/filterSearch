@@ -4,14 +4,20 @@ export const types = gql`
   type Query {
     hello: String
     searchUsers(
+      limit: Int
+      offset: Int
       country: String
       price: [Int]
       age: [Int]
       shirtSize: [String]
       gender: String
-    ): [User!]!
+    ): Feed!
   }
 
+  type Feed {
+    user: [User!]!
+    count: Int!
+  }
   type User {
     _id: String
     name: String

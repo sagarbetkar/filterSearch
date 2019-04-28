@@ -2,6 +2,13 @@ import { User } from "../models/User";
 
 export const userController = {
   searchUsers: (root: any, args: any) => {
+    const paginationParams = {
+      limit: args.limit || 9,
+      offset: args.offset || 0
+    };
+
+    if (args.limit) delete args.limit;
+    if (args.offset) delete args.offset;
     const where =
       Object.entries(args).length === 0
         ? {}
@@ -33,6 +40,10 @@ export const userController = {
           age: { $gte: args.age[0], $lte: args.age[1] }
         })
       : undefined;
-    return User.find(where);
+    const user = User.find(where)
+      .skip(paginationParams.offset)
+      .limit(paginationParams.limit);
+    const count = User.find({}).countDocuments();
+    return { user, count };
   }
 };
