@@ -21,15 +21,15 @@ export class FilterFormContainer extends Component<FormComponentProps, {}> {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        // console.log("Received values of form: ", values);
         history.replace(`/?${queryString.stringify(values)}`);
       }
     });
   };
   render() {
     const { getFieldDecorator } = this.props.form;
-    console.log(window.location.search);
-    console.log(queryString.parse(window.location.search));
+    // console.log(window.location.search);
+    // console.log(queryString.parse(window.location.search));
     const data = queryString.parse(window.location.search);
     const { country, price, age, shirtSize, gender }: any = data;
     return (

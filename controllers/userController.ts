@@ -8,7 +8,7 @@ export const userController = {
     };
 
     if (args.limit) delete args.limit;
-    if (args.offset) delete args.offset;
+    if (args.offset || args.offset == 0) delete args.offset;
     const where =
       Object.entries(args).length === 0
         ? {}
@@ -43,7 +43,7 @@ export const userController = {
     const user = User.find(where)
       .skip(paginationParams.offset)
       .limit(paginationParams.limit);
-    const count = User.find({}).countDocuments();
+    const count = User.find(where).countDocuments();
     return { user, count };
   }
 };
