@@ -2,6 +2,9 @@ import { User } from "../models/User";
 
 export const userController = {
   searchUsers: (root: any, args: any) => {
+    console.log(args);
+    // Remove properties with empty value
+    Object.keys(args).forEach(key => args[key] === null && delete args[key]);
     const paginationParams = {
       limit: args.limit || 9,
       offset: args.offset || 0
@@ -40,6 +43,7 @@ export const userController = {
           age: { $gte: args.age[0], $lte: args.age[1] }
         })
       : undefined;
+    console.log(where);
     const user = User.find(where)
       .skip(paginationParams.offset)
       .limit(paginationParams.limit);
