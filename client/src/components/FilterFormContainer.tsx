@@ -16,20 +16,31 @@ const CONSTANT = {
   }
 };
 
+const defaultValues = {
+  country: undefined,
+  price: [10, 100],
+  age: [18, 60],
+  shirtSize: undefined,
+  gender: undefined
+};
+
 export class FilterFormContainer extends Component<FormComponentProps, {}> {
   handleSubmit = e => {
     e.preventDefault();
+    const queryParams = {};
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // console.log("Received values of form: ", values);
-        history.replace(`/?${queryString.stringify(values)}`);
+        for (const key in values) {
+          if (values[key] !== undefined && values[key] !== defaultValues[key]) {
+            queryParams[key] = values[key];
+          }
+        }
+        history.replace(`/?${queryString.stringify(queryParams)}`);
       }
     });
   };
   render() {
     const { getFieldDecorator } = this.props.form;
-    // console.log(window.location.search);
-    // console.log(queryString.parse(window.location.search));
     const data = queryString.parse(window.location.search);
     const { country, price, age, shirtSize, gender }: any = data;
     return (
@@ -38,13 +49,13 @@ export class FilterFormContainer extends Component<FormComponentProps, {}> {
           <Form.Item label="Country">
             {getFieldDecorator("country", {
               rules: [{ required: false }],
-              initialValue: country ? country : undefined
+              initialValue: country ? country : defaultValues.country
             })(<Input placeholder="Country" />)}
           </Form.Item>
           <Form.Item label="Gender">
             {getFieldDecorator("gender", {
               rules: [{ required: false }],
-              initialValue: gender ? gender : undefined
+              initialValue: gender ? gender : defaultValues.gender
             })(
               <Select>
                 <Option value="Male">Male</Option>
@@ -55,7 +66,7 @@ export class FilterFormContainer extends Component<FormComponentProps, {}> {
           <Form.Item label="Shirt size">
             {getFieldDecorator("shirtSize", {
               rules: [{ required: false }],
-              initialValue: shirtSize ? shirtSize : undefined
+              initialValue: shirtSize ? shirtSize : defaultValues.shirtSize
             })(
               <Select
                 mode="multiple"
@@ -74,13 +85,17 @@ export class FilterFormContainer extends Component<FormComponentProps, {}> {
           <Form.Item>
             {getFieldDecorator("age", {
               rules: [{ required: false }],
-              initialValue: Number(age) ? Number(age) : [18, 60]
+              initialValue: age
+                ? [Number(age["0"]), Number(age["1"])]
+                : defaultValues.age
             })(<Slider min={18} max={60} marks={CONSTANT.age} range />)}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator("price", {
               rules: [{ required: false }],
-              initialValue: Number(price) ? Number(price) : [10, 100]
+              initialValue: price
+                ? [Number(price["0"]), Number(price["1"])]
+                : defaultValues.price
             })(<Slider min={10} max={100} marks={CONSTANT.price} range />)}
           </Form.Item>
           <Form.Item>

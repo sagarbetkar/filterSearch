@@ -26,10 +26,11 @@ export class UserContainer extends Component {
     const { country, price, age, shirtSize, gender }: any = queryString.parse(
       window.location.search
     );
-    const Nage = Number(age);
-    const Nprice = Number(price);
+    console.log(age);
+    const Nage = age ? [Number(age["0"]), Number(age["1"])] : null;
+    const Nprice = price ? [Number(price["0"]), Number(price["1"])] : null;
     const { limit, offset } = this.state;
-
+    console.log(Nage);
     const UserQuery = () => (
       <Query
         query={SEARCHUSER_QUERY}
@@ -40,27 +41,31 @@ export class UserContainer extends Component {
           if (error) console.log(error);
           return (
             <Fragment>
-              {data.searchUsers.user.map((userDetails: any) => (
-                <div className="col" key={userDetails["_id"]}>
-                  <Card
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={
-                      <img
-                        alt={userDetails["_id"]}
-                        src={userDetails["avatar"]}
-                      />
-                    }
-                  >
-                    <p>{userDetails["name"]}</p>
-                    <p>{userDetails["age"]}</p>
-                    <p>{userDetails["gender"]}</p>
-                    <p>{userDetails["shirtSize"]}</p>
-                    <p>{userDetails["price"]}</p>
-                    <p>{userDetails["country"]}</p>
-                  </Card>
-                </div>
-              ))}
+              {data.searchUsers.user ? (
+                data.searchUsers.user.map((userDetails: any) => (
+                  <div className="col" key={userDetails["_id"]}>
+                    <Card
+                      hoverable
+                      style={{ width: 240 }}
+                      cover={
+                        <img
+                          alt={userDetails["_id"]}
+                          src={userDetails["avatar"]}
+                        />
+                      }
+                    >
+                      <p>{userDetails["name"]}</p>
+                      <p>{userDetails["age"]}</p>
+                      <p>{userDetails["gender"]}</p>
+                      <p>{userDetails["shirtSize"]}</p>
+                      <p>{userDetails["price"]}</p>
+                      <p>{userDetails["country"]}</p>
+                    </Card>
+                  </div>
+                ))
+              ) : (
+                <h1>No record found</h1>
+              )}
               <div className="col-12 antd-pagination">
                 <Pagination
                   onChange={this.onChange}

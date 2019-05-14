@@ -7,8 +7,8 @@ export const SEARCHUSER_QUERY = gql`
     $country: String
     $gender: String
     $shirtSize: [String]
-    $age: [Int]
-    $price: [Int]
+    $Nage: [Int]
+    $Nprice: [Int]
   ) {
     searchUsers(
       limit: $limit
@@ -16,8 +16,8 @@ export const SEARCHUSER_QUERY = gql`
       country: $country
       gender: $gender
       shirtSize: $shirtSize
-      age: $age
-      price: $price
+      age: $Nage
+      price: $Nprice
     ) {
       count
       user {
